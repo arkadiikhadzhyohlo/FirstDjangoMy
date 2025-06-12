@@ -1,0 +1,6 @@
+.idea/
+*.pyc
+*cache/
+tmp/
+*.sqlite
+*.db
