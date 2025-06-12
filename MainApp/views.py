@@ -1,4 +1,5 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 
 items = [
     {"id": 1, "name": "Кроссовки abibas", "quantity": 5},
@@ -9,20 +10,30 @@ items = [
 ]
 
 # Create your views here.
-def home (request):
-    text = "<h1>Welcome</h1>!"
+def home(request):
+
+    return render(request,"index.html")
+
+
+def home(request):
+    context = {
+        "name": "Аркадий",
+        "surname": "Хаджиогло"
+    }
+    return render(request, "index.html", context)
+
+
+def about(request):
+    text = "Автор: Аркадий Хаджиогло"
     return HttpResponse(text)
 
-def about (request):
-    text= "Автор - Аркадий"
-    return HttpResponse(text)
 
 def items_list(request):
-    item= items[0]
-    html_result ="""
-    Список товаров:
-    <ul>
-    <li>Кроссовки адидас</li>
-    <li>Куртка</li>
-    </ul>
-    """
+    context = {"items": items}
+    return render(request, "items.html", context)
+
+
+def item_page(request, id):
+    for item in items:
+        if item["id"] == id:
+            return render(request, "item.html", item)
